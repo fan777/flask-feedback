@@ -1,28 +1,63 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th scope="row">Username</th>
+            <td>{{ user.username }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td>{{ user.email }}</td>
+          </tr>
+          <tr>
+            <th scope="row">First Name</th>
+            <td>{{ user.first_name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Last Name</th>
+            <td>{{ user.last_name }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-danger" href="/users/{{user.username}}/delete"
+        ><i class="fas fa-trash"></i
+      ></a>
+      <a class="btn btn-success" href="/users/{{user.username}}/feedback/add"
+        ><i class="fas fa-plus-square"></i
+      ></a>
+    </div>
 
-<h1 class="display-1">User</h1>
-
-<table class="table">
-  <tbody>
-    <tr>
-      <th scope="row">Username</th>
-      <td>{{ user.username }}</td>
-    </tr>
-    <tr>
-      <th scope="row">Email</th>
-      <td>{{ user.email }}</td>
-    </tr>
-    <tr>
-      <th scope="row">First Name</th>
-      <td>{{ user.first_name }}</td>
-    </tr>
-    <tr>
-      <th scope="row">Last Name</th>
-      <td>{{ user.last_name }}</td>
-    </tr>
-  </tbody>
-</table>
+    <div class="col-8">
+      <div>
+        {% for feedback in user.feedback %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="text-info" href="/feedback/{{feedback.id}}/update">{{ feedback.title }}</a> {% if session['user_id'] == user.username %}
+              <form
+                style="display: inline"
+                action="/feedback/{{feedback.id}}/delete"
+                method="POST">
+                <button class="btn btn-sm btn-danger">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+              {% endif %}
+            </h5>
+            <p class="card-text">{{ feedback.content }}</p>
+            <h6 class="card-subtitle text-muted">
+              by {{ feedback.user.username }}
+            </h6>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
