@@ -23,12 +23,8 @@
           </tr>
         </tbody>
       </table>
-      <a class="btn btn-danger" href="/users/{{user.username}}/delete"
-        ><i class="fas fa-trash"></i
-      ></a>
-      <a class="btn btn-success" href="/users/{{user.username}}/feedback/add"
-        ><i class="fas fa-plus-square"></i
-      ></a>
+      <a class="btn btn-danger" href="/users/{{user.username}}/delete"><i class="fas fa-trash"></i></a>
+      <a class="btn btn-success" href="/users/{{user.username}}/feedback/add"><i class="fas fa-plus-square"></i></a>
     </div>
 
     <div class="col-8">
@@ -37,21 +33,14 @@
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">
-              <a class="text-info" href="/feedback/{{feedback.id}}/update">{{ feedback.title }}</a> {% if session['user_id'] == user.username %}
-              <form
-                style="display: inline"
-                action="/feedback/{{feedback.id}}/delete"
-                method="POST">
-                <button class="btn btn-sm btn-danger">
-                  <i class="fas fa-trash"></i>
-                </button>
+              <a class="text-info" href="/feedback/{{feedback.id}}/update">{{ feedback.title }}</a>{% if session['user_id'] == user.username %}
+              <form style="display: inline" action="/feedback/{{feedback.id}}/delete" method="POST">
+                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
               </form>
               {% endif %}
             </h5>
             <p class="card-text">{{ feedback.content }}</p>
-            <h6 class="card-subtitle text-muted">
-              by {{ feedback.user.username }}
-            </h6>
+            <h6 class="card-subtitle text-muted">by {{ feedback.user.username }}</h6>
           </div>
         </div>
         {% endfor %}
